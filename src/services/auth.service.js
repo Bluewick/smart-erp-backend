@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { createUser, getUserByEmail } from "../models/user.model.js";
+import { generateToken } from "../utils/jwt.js";
 
 export const signupService = async ({ fullName, email, password }) => {
     if (!fullName || !email || !password) {
@@ -33,10 +34,15 @@ export const loginService = async ({ email, password }) => {
         throw new Error("Invalid email or password.");
     }
 
+    const token = generateToken(user);
+
     return {
-        id: user.id,
-        full_name: user.full_name,
-        email: user.email,
-        created_at: user.created_at
+        user: {
+            id: user.id,
+            full_name: user.full_name,
+            email: user.email,
+            created_at: user.created_at
+        },
+        token
     };
 };
