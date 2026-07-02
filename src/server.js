@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import pool from "./config/db.js";
+import authRoutes from "./routes/auth.routes.js"
 
 console.log("Starting Server...");
 
@@ -13,6 +14,8 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/auth", authRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
