@@ -3,7 +3,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import pool from "./config/db.js";
-import authRoutes from "./routes/auth.routes.js"
+import authRoutes from "./routes/auth.routes.js";
+import companyRoutes from "./routes/company.routes.js";
 
 console.log("Starting Server...");
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api", companyRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
@@ -25,12 +27,12 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 try {
-    const result = await pool.query("SELECT NOW()");
-    console.log("✅ PostgreSQL Connected");
-    console.log(result.rows[0]);
+  const result = await pool.query("SELECT NOW()");
+  console.log("✅ PostgreSQL Connected");
+  console.log(result.rows[0]);
 } catch (err) {
-    console.error("❌ Database Connection Failed");
-    console.error(err.message);
+  console.error("❌ Database Connection Failed");
+  console.error(err.message);
 }
 
 app.listen(PORT, () => {
