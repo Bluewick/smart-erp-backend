@@ -2,6 +2,7 @@
 node_modules/
 jspm_packages/
 web_modules/
+db_dump/
 
 # Environment files
 .env
